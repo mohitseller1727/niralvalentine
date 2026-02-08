@@ -79,24 +79,29 @@
     </script>
 
     <!-- Background Music -->
-    <audio autoplay loop>
-        <source src="Dooron Dooron(KoshalWorld.Com).mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+<audio id="bg-audio" loop>
+  <source src="Dooron Dooron(KoshalWorld.Com).mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
 
-    <script>
-        // Start audio at 1 minute 6 seconds
-        const audio = document.querySelector("audio");
-        audio.addEventListener("loadedmetadata", () => {
-            audio.currentTime = 66; // 1 minute 6 seconds
-        });
+<button id="start">Start</button>
 
-        // Save playback time before navigating
-        document.getElementById("yes").onclick = () => {
-            localStorage.setItem("audioTime", audio.currentTime);
-            window.location.href = "yes.html";
-        };
-    </script>
+<script>
+  const audio = document.getElementById("bg-audio");
+  const startBtn = document.getElementById("start");
+
+  startBtn.addEventListener("click", () => {
+    audio.addEventListener("loadedmetadata", () => {
+      audio.currentTime = 66;
+      audio.play();
+    });
+    // In case metadata is already loaded
+    if (audio.readyState >= 1) {
+      audio.currentTime = 66;
+      audio.play();
+    }
+  });
+</script>
 </body>
 
 </html>
