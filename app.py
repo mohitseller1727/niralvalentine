@@ -1,17 +1,12 @@
-import http.server
-import socketserver
-import os
+import streamlit as st
 
-PORT = int(os.environ.get('PORT', 8080))
+st.set_page_config(page_title="My Simple Page")
 
-class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-    def end_headers(self):
-        # Add CORS headers if needed
-        self.send_header('Access-Control-Allow-Origin', '*')
-        super().end_headers()
+st.title("My Simple Web Page")
+st.write("This is a basic Streamlit app.")
 
-Handler = MyHTTPRequestHandler
+# If you want to show your index.html as raw HTML:
+with open("index.html", "r", encoding="utf-8") as f:
+    html_content = f.read()
 
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
-    print(f"Server running at http://localhost:{PORT}")
-    httpd.serve_forever()
+st.components.v1.html(html_content, height=600, scrolling=True)
